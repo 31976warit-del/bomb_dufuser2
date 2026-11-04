@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Bomb Defuser 🚨</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="game-container" id="game-box">
+        
+        <!-- หน้าที่ 1: หน้าแรก (Start Screen Style Board Game) -->
+        <div id="start-screen" class="screen active">
+            <div class="cloud-bg cloud-top-left"></div>
+            <div class="cloud-bg cloud-top-right"></div>
+            <div class="cloud-bg cloud-bottom-left"></div>
+            <div class="cloud-bg cloud-bottom-right"></div>
+
+            <div class="cover-title-box">
+                <div class="board-game-text">BOMB DEFUSER</div>
+                <div class="math-subtitle">เกมคณิตศาตร์แก้สมการ</div>
+            </div>
+
+            <div class="cover-rules-box">
+                💡 <b>กติกาความตื่นเต้น:</b><br>
+                • มีเวลาจำกัดในการแก้สมการแต่ละข้อ<br>
+                • ตอบถูกต่อเนื่องคอมโบพุ่ง คะแนนยิ่งคูณสูง<br>
+                • ⚠️ ตอบผิดตัดเวลาทันที 6 วินาที!
+            </div>
+
+            <button class="btn-action" onclick="switchScreen('tutorial-screen')">เรียนรู้วิธีเล่น & แก้สมการ 📖</button>
+            
+            
+        </div>
+
+        <!-- หน้าที่ 2: หน้าอธิบายวิธีการแก้สมการ (Tutorial Screen) -->
+        <div id="tutorial-screen" class="screen">
+            <h2 style="color: #ffcc00; margin-bottom: 15px; text-align: center;">📖 คัมภีร์ถอดรหัสสมการ</h2>
+            
+            <div class="tutorial-container">
+                <div class="tutorial-card">
+                    <h3>🎯 เป้าหมายสูงสุด</h3>
+                    <p style="font-size: 0.95rem; margin: 0; color: #ddd; line-height: 1.5;">
+                        คือการทำให้ตัวแปร <b class="highlight-green">x อยู่ตัวคนเดียว</b> โดดเดี่ยวที่ฝั่งซ้ายของเครื่องหมายเท่ากับ (<span class="highlight-yellow">=</span>) เพื่อหาคำตอบที่ซ่อนอยู่! โดยเราจะใช้วิธีลอกคราบตัวเลขรอบตัวมันออกด้วยการ <b>"ย้ายข้าง"</b>
+                    </p>
+                </div>
+
+                <div class="tutorial-card" style="border-left-color: #00ff66;">
+                    <h3>🔄 กฎเหล็กของการย้ายข้าง</h3>
+                    <p style="font-size: 0.95rem; margin: 0 0 5px 0; color: #aaa;">เมื่อย้ายตัวเลขข้ามสะพานเครื่องหมายเท่ากับ (<span class="highlight-yellow">=</span>) เครื่องหมายจะเปลี่ยนเป็น<b>ตรงกันข้าม</b>เสมอ:</p>
+                    
+                    <div class="grid-operators">
+                        <div class="operator-box"><span>➕ อยู่ซ้าย</span> <span class="arrow-indicator">ย้ายไปเป็น ➡️</span> <span class="highlight-red">➖ ลบ</span></div>
+                        <div class="operator-box"><span>➖ อยู่ซ้าย</span> <span class="arrow-indicator">ย้ายไปเป็น ➡️</span> <span class="highlight-green">➕ บวก</span></div>
+                        <div class="operator-box"><span>✖️ คูณอยู่</span> <span class="arrow-indicator">ย้ายไปเป็น ➡️</span> <span class="highlight-red">➗ หาร</span></div>
+                        <div class="operator-box"><span>➗ หารอยู่</span> <span class="arrow-indicator">ย้ายไปเป็น ➡️</span> <span class="highlight-green">✖️ คูณ</span></div>
+                    </div>
+                </div>
+
+                <div class="tutorial-card" style="border-left-color: #ff3333;">
+                    <h3>⏳ ลำดับสเต็ปการแก้สมการ (สำคัญมาก!)</h3>
+                    <p style="font-size: 0.95rem; margin: 0; color: #ddd; line-height: 1.6;">
+                        ⚠️ <b>จำกฎนี้ให้ดี:</b> เราต้องย้ายตัวเลขที่อยู่ <b>"ไกลจาก x"</b> ที่สุดออกไปก่อน (พวกกลุ่มบวกลบ) แล้วค่อยย้ายตัวเลขที่ <b>"ติดอยู่กับ x"</b> (พวกกลุ่มคูณหาร) ออกทีหลัง
+                    </p>
+                    
+                    <div style="margin-top: 12px;">
+                        <b>ตัวอย่างการถอดรหัส:</b>
+                        <div class="math-block">
+                            <b>โจทย์:</b> 2x + 5 = 13<br><br>
+                            <b>ขั้นที่ 1:</b> ย้ายตัวไกล x ออกก่อน (+5 ย้ายไปเป็น -5)<br>
+                            2x = 13 <span class="highlight-red">- 5</span><br>
+                            2x = 8<br><br>
+                            <b>ขั้นที่ 2:</b> ย้ายตัวที่ติด x ออก (2 ที่คูณอยู่ ย้ายไปหาร)<br>
+                            x = 8 <span class="highlight-red">/ 2</span><br>
+                            <b class="highlight-green">x = 4</b> 🎉
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="btn-action" onclick="startGame()">พร้อมแล้ว! เริ่มกู้ระเบิด 💣</button>
+            </div>
+        </div>
+
+        <!-- หน้าที่ 3: หน้าเล่นเกมหลัก (Game Screen) -->
+        <div id="game-screen" class="screen">
+            <div class="stats-bar">
+                <div>ข้อ: <span id="level-display" class="stat-highlight">1</span></div>
+                <div>คะแนน: <span id="score-display" class="stat-highlight">0</span></div>
+                <div>คอมโบ: <span id="combo-display" class="stat-highlight">x1</span></div>
+            </div>
+
+            <div id="timer">10.0</div>
+            
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+
+            <div id="equation">2x + 4 = 10</div>
+
+            <div class="options-grid" id="options-container">
+                <!-- ตัวเลือกจะถูกสร้างด้วย JS -->
+            </div>
+
+            <button class="btn-hint" onclick="showHint()">💡 ขอคำใบ้ (ลดคะแนน 50%)</button>
+        </div>
+
+        <!-- หน้าที่ 4: หน้าเกมจบ (Game Over / Exploded) -->
+        <div id="gameover-screen" class="screen">
+            <h1 style="font-size: 3rem; color: #ff3333; margin-bottom: 10px;">💥 BOOM!</h1>
+            <p style="font-size: 1.2rem; color: #aaa;">ระเบิดทำงาน! คุณถอดรหัสไม่ทันเวลา</p>
+
+            <div style="background: #1e1e28; padding: 20px; border-radius: 12px; margin: 20px 0;">
+                <p style="margin: 5px 0; font-size: 1.1rem;">คะแนนรวม: <b id="final-score" style="color: #00ff66;">0</b></p>
+                <p style="margin: 5px 0; font-size: 1.1rem;">ผ่านไปได้: <b id="final-level" style="color: #ffcc00;">0</b> ด่าน</p>
+            </div>
+
+            <div class="explanation-box" id="explanation-box">
+                <div style="color: #ffcc00; font-weight: bold; margin-bottom: 8px;">🔍 เฉลยสมการที่พลาดไป:</div>
+                <div id="explanation-text"></div>
+            </div>
+
+            <button class="btn-action" onclick="startGame()">ลองใหม่อีกครั้ง 🔄</button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+<!-- หน้าที่ 4: หน้าเกมจบ (Game Over / Exploded) -->
+<div id="gameover-screen" class="screen">
+    <h1 style="font-size: 3rem; color: #ff3333; margin-bottom: 10px;">💥 BOOM!</h1>
+    <p style="font-size: 1.2rem; color: #aaa;">ระเบิดทำงาน! คุณถอดรหัสไม่ทันเวลา</p>
+
+    <div style="background: #1e1e28; padding: 20px; border-radius: 12px; margin: 20px 0;">
+        <p style="margin: 5px 0; font-size: 1.1rem;">คะแนนรวม: <b id="final-score" style="color: #00ff66;">0</b></p>
+        <p style="margin: 5px 0; font-size: 1.1rem;">ผ่านไปได้: <b id="final-level" style="color: #ffcc00;">0</b> ด่าน</p>
+    </div>
+
+    <div class="explanation-box" id="explanation-box">
+        <div style="color: #ffcc00; font-weight: bold; margin-bottom: 8px;">🔍 เฉลยสมการที่พลาดไป:</div>
+        <div id="explanation-text"></div>
+    </div>
+
+    <!-- ปุ่มควบคุม Restart & Home -->
+    <div class="btn-group">
+        <button class="btn-action btn-restart" onclick="startGame()">ลองใหม่อีกครั้ง 🔄</button>
+        <button class="btn-action btn-home" onclick="goHome()">กลับหน้าแรก 🏠</button>
+    </div>
+</div>
